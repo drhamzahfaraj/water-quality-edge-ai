@@ -1,0 +1,5 @@
+scenario,method,one_minus_rmse,rmse,energy_mj,notes
+Extreme events subset,Fixed 8-bit CNN-TCN,0.69,0.31,2.00,Stations with frequent turbidity/nutrient spikes
+Extreme events subset,Proposed dynamic,0.73,0.27,1.60,Higher precision profile selected more often
+Cross-station (held-out regions),Fixed 8-bit CNN-TCN,0.68,0.32,2.00,Train on subset of countries test on held-out
+Cross-station (held-out regions),Proposed dynamic,0.72,0.28,1.45,Better generalization across hydroclimatic regimes

@@ -1,0 +1,8 @@
+method,one_minus_rmse,rmse,power_w,energy_mj,notes
+Non-AI static ADC,0.58,0.42,0.010,0.50,Conventional sigma-delta ADC with threshold rules
+TinyML,0.69,0.31,0.018,0.90,Shallow CNN with uniform 8-bit quantization
+Fixed 8-bit CNN-TCN,0.72,0.28,0.040,2.00,Baseline: compressed student with uniform 8-bit
+Activation-aware 8-bit,0.73,0.27,0.038,1.90,Per-layer activation calibration
+Static mixed precision,0.74,0.26,0.034,1.70,Fixed bit-width assignment per layer
+Configurable dynamic,0.75,0.25,0.032,1.60,Activation-range-based dynamic quantization
+Dynamic mixed-precision CNN-TCN (proposed),0.76,0.24,0.029,1.45,Variance-aware dynamic policy (our method)

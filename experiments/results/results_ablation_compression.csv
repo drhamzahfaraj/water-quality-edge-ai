@@ -1,0 +1,4 @@
+model,one_minus_rmse,rmse,parameters_millions,notes
+Teacher CNN-LSTM/CNN-TCN,0.77,0.23,2.10,Full-precision teacher model
+Student compressed no distillation,0.74,0.26,1.20,Structured pruning only (43% reduction)
+Student compressed with distillation,0.75,0.25,1.20,Structured pruning + knowledge distillation
