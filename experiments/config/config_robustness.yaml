@@ -1,0 +1,81 @@
+# Robustness Experiments
+# Reproduces Figure 3 and Section 4.5
+
+experiment_name: "robustness_experiments"
+
+base_config: "config_main.yaml"
+
+# Use the final proposed model (dynamic mixed-precision CNN-TCN)
+model:
+  base: "proposed_dynamic"
+
+# Robustness Test 1: Additive Noise
+noise_robustness:
+  enabled: true
+  noise_type: "gaussian"
+  noise_mean: 0.0
+  noise_std_levels: [0.05, 0.10, 0.20]
+  
+  baselines:
+    - "fixed_8bit"
+    - "proposed_dynamic"
+
+# Robustness Test 2: Missing Data
+missing_data_robustness:
+  enabled: true
+  missing_mechanism: "random"  # MCAR (Missing Completely At Random)
+  missing_rates: [0.10, 0.20, 0.30]
+  imputation: "mean_per_station"  # Same as training
+  
+  baselines:
+    - "static_mixed_precision"
+    - "proposed_dynamic"
+
+# Robustness Test 3: Extreme Events
+extreme_events:
+  enabled: true
+  subset_criteria:
+    turbidity_spikes: true
+    nutrient_spikes: true
+    threshold_percentile: 95  # Top 5% most extreme stations
+  
+  baselines:
+    - "fixed_8bit"
+    - "proposed_dynamic"
+  
+  # Track precision profile selection frequency
+  analyze_profile_usage: true
+
+# Generalization Test: Cross-Station (Cross-Region)
+cross_station_generalization:
+  enabled: true
+  train_countries:
+    - "USA"
+    - "Germany"
+    - "France"
+    - "UK"
+    - "Canada"
+  
+  test_countries:
+    - "Brazil"
+    - "India"
+    - "China"
+    - "Australia"
+  
+  baselines:
+    - "fixed_8bit"
+    - "proposed_dynamic"
+
+evaluation:
+  # For each robustness scenario, measure:
+  metrics:
+    - "one_minus_rmse"
+    - "rmse"
+    - "percent_of_clean_performance"
+    - "energy_per_inference_mj"
+  
+  # Save separate results files for each test
+  output_files:
+    - "results_robustness_noise.csv"
+    - "results_robustness_missing.csv"
+    - "results_extreme_generalization.csv"

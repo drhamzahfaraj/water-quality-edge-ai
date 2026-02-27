@@ -1,0 +1,41 @@
+# Ablation Study: Compression and Distillation
+# Reproduces Table 2
+
+experiment_name: "ablation_compression_distillation"
+
+# Inherit most settings from main config
+base_config: "config_main.yaml"
+
+# Override specific settings for ablation
+training:
+  student:
+    # Experiment 1: No distillation
+    distillation_enabled: false
+    loss:
+      reconstruction_weight: 1.0
+      distillation_weight: 0.0  # Turn off distillation
+      compression_weight: 0.01
+    
+    # Experiment 2: With distillation
+    # (uses default from main config)
+
+evaluation:
+  # Compare:
+  # 1. Full-precision teacher (2.10M params)
+  # 2. Compressed student without distillation (1.20M params)
+  # 3. Compressed student with distillation (1.20M params)
+  
+  variants:
+    - name: "teacher"
+      model: "teacher"
+      precision: "fp32"
+    
+    - name: "student_no_distill"
+      model: "student"
+      distillation: false
+      precision: "fp32"
+    
+    - name: "student_with_distill"
+      model: "student"
+      distillation: true
+      precision: "fp32"

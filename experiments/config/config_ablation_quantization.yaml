@@ -1,0 +1,41 @@
+# Ablation Study: Static vs Dynamic Quantization
+# Reproduces Table 3
+
+experiment_name: "ablation_static_vs_dynamic_quantization"
+
+base_config: "config_main.yaml"
+
+# Use the compressed, distilled student for both variants
+model:
+  base: "student_distilled"
+
+quantization:
+  # Experiment 1: Static mixed precision (fixed assignment)
+  static:
+    enabled: true
+    profile: "static_profile"  # From main config
+    dynamic_control: false
+  
+  # Experiment 2: Variance-aware dynamic quantization
+  dynamic:
+    enabled: true
+    policy: "variance_threshold"
+    profiles: "dynamic_profiles"  # From main config
+    thresholds:
+      tau_low: 0.05
+      tau_high: 0.15
+
+evaluation:
+  variants:
+    - name: "static_mixed_precision"
+      quantization: "static"
+    
+    - name: "variance_aware_dynamic"
+      quantization: "dynamic"
+  
+  # Measure both accuracy and energy for each variant
+  metrics:
+    - "one_minus_rmse"
+    - "rmse"
+    - "energy_per_inference_mj"
+    - "power_w"

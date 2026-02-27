@@ -1,0 +1,157 @@
+# Main Experimental Configuration
+# Reproduces Table 1 (Main Results)
+
+experiment_name: "main_comparison"
+
+data:
+  dataset_path: "data/unep_subset.csv"
+  train_split: 0.8
+  val_split: 0.1
+  test_split: 0.1
+  stratify_by: "station_id"
+  temporal_order: true  # Train on earlier periods, test on later
+  
+  # 10 indicators
+  features:
+    - pH
+    - dissolved_oxygen
+    - turbidity
+    - conductivity
+    - nitrate
+    - phosphate
+    - total_suspended_solids
+    - BOD
+    - COD
+    - temperature
+  
+  preprocessing:
+    normalization: "minmax"  # Scale to [0,1]
+    missing_strategy: "mean_imputation_per_station"
+    outlier_removal: "IQR"  # 1.5 * IQR rule
+    augmentation:
+      enabled: true
+      fraction: 0.2  # Augment 20% of training data
+      noise_std: 0.1  # Zero-mean Gaussian noise
+
+  windowing:
+    input_hours: 24  # 24-hour input windows
+    output_hours: 24  # Predict next 24 hours
+
+model:
+  teacher:
+    architecture: "CNN-LSTM"  # or "CNN-TCN"
+    precision: "fp32"
+    cnn_channels: [32, 64, 128]
+    cnn_kernels: [3, 3, 3]
+    lstm_hidden: 128
+    lstm_layers: 2
+    dropout: 0.2
+    
+  student:
+    architecture: "CNN-TCN"
+    compression_ratio: 0.43  # Target 43% parameter reduction
+    pruning_method: "structured_L2"
+    
+    # Architecture from Table in paper
+    layers:
+      - {type: "conv1d", channels: 32, kernel: 3, dilation: 1}
+      - {type: "conv1d", channels: 64, kernel: 3, dilation: 2}
+      - {type: "conv1d", channels: 64, kernel: 3, dilation: 4}
+      - {type: "tcn_block", channels: 64, kernel: 3, dilation: 8, residual: true}
+      - {type: "tcn_block", channels: 64, kernel: 3, dilation: 16, residual: true}
+      - {type: "global_pool", method: "average"}
+      - {type: "dense", units: 64}
+      - {type: "dense", units: 10}  # 10 output indicators
+
+training:
+  teacher:
+    epochs: 100
+    batch_size: 64
+    optimizer: "adam"
+    learning_rate: 0.001
+    lr_schedule: "cosine"
+    early_stopping:
+      patience: 10
+      metric: "val_rmse"
+  
+  student:
+    epochs: 80
+    batch_size: 64
+    optimizer: "adam"
+    learning_rate: 0.001
+    lr_schedule: "cosine"
+    
+    # Loss weights
+    loss:
+      reconstruction_weight: 1.0
+      distillation_weight: 0.5  # lambda_KD
+      compression_weight: 0.01  # lambda_c
+      weight_decay: 0.0001
+
+quantization:
+  # Post-training quantization
+  ptq:
+    calibration_samples: 1000
+    bit_widths: [4, 6, 8]
+    per_layer_sensitivity: true
+  
+  # Quantization-aware training
+  qat:
+    epochs: 40
+    quantization_weight: 0.01  # lambda_q
+    fake_quantize: true
+  
+  # Static mixed precision profile
+  static_profile:
+    conv1: 8
+    conv2: 8
+    conv3: 6
+    tcn_block1: 6
+    tcn_block2: 6
+    dense1: 8
+    output: 8
+  
+  # Dynamic precision profiles
+  dynamic_profiles:
+    low:  # For low variance (sigma < tau_low)
+      weights: 4
+      activations: 4
+    medium:  # For medium variance
+      weights: 6
+      activations: 6
+    high:  # For high variance (sigma >= tau_high)
+      weights: 8
+      activations: 8
+  
+  # Variance thresholds (determined on validation set)
+  variance_thresholds:
+    tau_low: 0.05
+    tau_high: 0.15
+    indicators: ["turbidity", "conductivity"]  # Monitor these for variance
+
+hardware:
+  platform: "raspberry-pi-class"
+  cpu: "ARM Cortex-A 1GHz quad-core"
+  memory: "1GB"
+  
+  energy_model:
+    method: "software_estimation"
+    base_power: 0.010  # Watts (idle)
+    cpu_power_factor: 0.05  # Per core utilization
+    memory_power_factor: 0.002  # Per MB/s
+
+evaluation:
+  metrics:
+    - "rmse"
+    - "one_minus_rmse"  # Normalized accuracy
+    - "energy_per_inference_mj"
+    - "power_w"
+    - "latency_ms"
+  
+  baselines:
+    - "non_ai_adc"
+    - "tinyml"
+    - "fixed_8bit"
+    - "activation_aware_8bit"
+    - "static_mixed_precision"
+    - "configurable_dynamic"
