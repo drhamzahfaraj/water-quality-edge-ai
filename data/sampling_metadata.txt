@@ -1,0 +1,27 @@
+# 500K Training Subset Metadata
+# Stratified sampling from UNEP GEMSWater archive
+# Paper: Optimizing Dynamic Quantization in Edge AI for Water Quality Monitoring
+# Author: Hamzah Faraj et al., Taif University
+
+## Temporal Distribution
+Period: 1906-1979 | Sampled: 25,000 (5%) | Rate: 6.1%
+Period: 1980-1999 | Sampled: 75,000 (15%) | Rate: 2.6%
+Period: 2000-2014 | Sampled: 200,000 (40%) | Rate: 2.8%
+Period: 2015-2023 | Sampled: 200,000 (40%) | Rate: 2.5%
+
+## Geographic Distribution
+North America: 119,170 records from 3,240 stations (avg 37/station)
+Europe: 153,760 records from 4,180 stations (avg 37/station)
+Asia: 106,310 records from 2,890 stations (avg 37/station)
+Africa: 55,940 records from 1,520 stations (avg 37/station)
+South America: 41,950 records from 1,140 stations (avg 37/station)
+Oceania: 25,390 records from 690 stations (avg 37/station)
+
+## Variance Distribution
+Low (σ<0.05): 210,000 records (42%)
+Moderate (0.05≤σ<0.15): 225,000 records (45%)
+High (σ≥0.15): 65,000 records (13%)
+
+Total: 500,000 records
+Quality filtering: 91% pass rate (18.2M qualified → 500K selected)
+Random seed: 42 (NumPy 1.24)

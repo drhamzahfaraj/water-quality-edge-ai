@@ -1,0 +1,8 @@
+Configuration,Power_W,RMSE,FLOPs_M,Accuracy_Pct
+Full Model (CNN-TCN),0.21,0.62,43,95.0
+w/ CNN-LSTM instead,0.24,0.65,62,91.2
+w/o Adaptive Quant,0.25,0.65,43,93.7
+w/o Distillation,0.21,0.70,43,89.8
+w/o HW-NAS,0.23,0.63,51,94.2
+w/o Mixed Precision,0.28,0.64,43,93.1
+Fixed 4-bit only,0.18,0.82,43,82.3

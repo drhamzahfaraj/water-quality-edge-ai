@@ -1,0 +1,7 @@
+Continent,RMSE,Accuracy_Pct,Degradation_Pct,Test_Samples
+North America,0.64,94.3,-0.7,8420
+Europe,0.61,95.8,0.8,10250
+Asia,0.67,93.1,-2.0,7085
+Africa,0.70,91.8,-3.4,3730
+South America,0.68,92.6,-2.5,2795
+Oceania,0.72,90.4,-4.8,1695
