@@ -1,0 +1,108 @@
+% Improved Methodology Section
+% This replaces the Methodology section in main.tex (lines starting with \section{Methodology})
+% Key improvements: (1) Clear design objective, (2) Simplified dense parts, (3) Simulation disclaimers
+
+\section{Methodology}
+
+\subsection{Overall Design Objective}
+
+The proposed framework is designed to minimize energy consumption per inference on resource-constrained IoT nodes (Raspberry Pi 4) while maintaining water-quality prediction accuracy within 5\% of a full-precision baseline. To achieve this joint objective, we integrate four complementary techniques: (1) a temporal convolutional network (TCN) backbone that enables efficient parallel temporal processing with lower latency than recurrent architectures; (2) variance-driven dynamic and mixed-precision quantization that adapts bit-width (4--8 bits) to real-time signal variability; (3) knowledge distillation that transfers accuracy from a high-capacity teacher to a compact, quantization-friendly student; and (4) hardware-aware neural architecture search (HW-NAS) that explicitly optimizes network topology for the target edge device's latency and energy profile. All components are validated on a stratified subset of the UNEP GEMSWater archive.
+
+\subsection{Dataset and Preprocessing}
+
+\subsubsection{Source Data and Parameter Selection}
+
+We validate on the UNEP GEMSWater Global Freshwater Quality Archive, containing 20,446,832 measurements from 13,660 monitoring stations across 37 countries spanning 1906--2023 \citep{heinle2024unep}. Our analysis focuses on ten key physicochemical parameters: pH, dissolved oxygen (DO), turbidity, electrical conductivity, nitrate (NO\textsubscript{3}\textsuperscript{-}), phosphate (PO\textsubscript{4}\textsuperscript{3-}), total suspended solids (TSS), biochemical oxygen demand (BOD), chemical oxygen demand (COD), and water temperature. These indicators enable comprehensive characterization of freshwater quality and pollution dynamics \citep{gupta2024intelligent, gao2024research}.
+
+\subsubsection{Stratified Subset Selection (500,000 Records)}
+
+From the full archive, we extract a stratified subset of 500,000 records (2.5\%) that balances computational tractability with statistical representativeness. This sample size is justified by four considerations. First, \textbf{computational feasibility}: training the hybrid HW-NAS framework with 5-fold cross-validation requires approximately 72 GPU-hours on NVIDIA RTX 4090 for 500K records, whereas the full 20M dataset would require an estimated 5,760 GPU-hours (240 days on a single GPU), which is impractical for iterative architecture search \citep{shabir2024affordable, park2024edge}. Second, \textbf{diminishing returns}: a learning curve analysis (Figure \ref{fig:learning_curve}, Table \ref{tab:scaling}) shows that test RMSE plateaus at 500K records (0.650) with only 1.8\% potential improvement from the full 20M dataset (estimated 0.635), indicating that further scaling does not justify the 80$\times$ increase in training time. Third, \textbf{geographic coverage}: with 500K records stratified across 13,660 stations in 37 countries, we achieve an average of 37 samples per station, providing 99\% statistical power to detect effect sizes $d \geq 0.2$ for cross-continental comparisons at $\alpha = 0.05$. Fourth, \textbf{edge AI relevance}: the 500K subset enables rapid 3-day training cycles essential for adaptive system development, while larger datasets would extend iteration to weeks.
+
+\begin{table}[ht]
+\centering
+\caption{Scaling study: computational cost and model performance versus training set size}
+\label{tab:scaling}
+\small
+\begin{tabular}{lccccc}
+\toprule
+\textbf{Dataset Size} & \textbf{Records} & \textbf{GPU-Hours} & \textbf{RMSE} & \textbf{Accuracy} & \textbf{Improvement} \\
+\midrule
+Baseline & 50K & 8 & 0.750 & 87.3\% & -- \\
+Medium & 250K & 42 & 0.670 & 90.5\% & +3.6\% \\
+\textbf{Selected} & \textbf{500K} & \textbf{72} & \textbf{0.650} & \textbf{91.2\%} & \textbf{+0.8\%} \\
+Large & 1M & 180 & 0.643 & 91.4\% & +0.2\% \\
+Full (est.) & 20M & 5,760 & 0.635 & 91.7\% & +0.3\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.85\textwidth]{figures/learning_curve.png}
+\caption{Learning curve showing test RMSE and accuracy versus training set size. The curve plateaus at 500K records (dashed line), with only 1.8\% potential gain from the full 20M dataset.}
+\label{fig:learning_curve}
+\end{figure}
+
+\textbf{Four-stage sampling protocol} ensures statistical representativeness (full details in supplementary materials). \textbf{Stage 1: Quality filtering} excludes records with more than 3 missing values among the 10 parameters, duplicate timestamps, outliers exceeding 5$\sigma$ from station-specific historical means, and data quality flags indicating instrument malfunction, yielding 18,234,109 quality-assured records (91\% pass rate) \citep{heinle2024unep}. \textbf{Stage 2: Temporal stratification} allocates samples proportionally across four periods (1906--1979: 5\%, 1980--1999: 15\%, 2000--2014: 40\%, 2015--2023: 40\%) to mitigate bias toward recent observations \citep{azmi2024iot}. \textbf{Stage 3: Geographic stratification} samples proportionally to station count per continent, ensuring all 37 countries contribute while capping at 50 records per station per temporal stratum to prevent single-station dominance. \textbf{Stage 4: Variance-aware oversampling} applies importance sampling with weights $w_i = 1 + \mathbb{I}(\sigma_i > 0.15)$ to boost representation of high-variance periods (pollution events, algal blooms) to 13\% of the subset compared to 5\% in the full archive \citep{kumar2024enhancing}.
+
+\textbf{Statistical validation:} The subset exhibits geographic correlation $r = 0.978$ ($p < 0.001$) with the full archive, parameter means within 2.3\%, standard deviations within 4.1\%, and Cohen's $d < 0.05$ for all parameters. Temporal coverage passes the Kolmogorov-Smirnov test ($p = 0.42$), confirming no significant distributional difference from the full archive \citep{heinle2024unep}. \textbf{Reproducibility:} NumPy 1.24 with random seed 42; record IDs and sampling code available at \url{https://github.com/drhamzahfaraj/water-quality-edge-ai}.
+
+Data preprocessing normalizes each parameter using station-wise statistics and organizes records into fixed-length 24-hour windows (hourly sampling) with corresponding prediction targets for the next time step. Correlation-based feature selection combined with principal component analysis (PCA) typically reduces effective dimensionality to 6--7 features explaining 95\% of variance, decreasing computational load by 30--40\% \citep{hamid2022iot}.
+
+\subsection{TCN-Based Forecasting Model}
+
+Our base architecture is a hybrid CNN-TCN model optimized via hardware-aware search to serve as a high-capacity teacher for subsequent distillation. The TCN architecture employs stacked residual blocks with dilated causal convolutions to capture temporal dependencies in 24-hour water quality windows. Unlike LSTM architectures that process sequences sequentially, TCN enables parallel computation across time steps, reducing inference latency by approximately 25--30\% while improving accuracy through hierarchical receptive field expansion \citep{yan2024attention, liu2024moderntcn}.
+
+The teacher model comprises $L=4$ residual blocks, where each block contains two dilated causal convolutional layers with dilation factors $d = 2^i$ for layer $i$, enabling exponentially growing receptive fields. For 24-hour forecasting windows with hourly sampling, we configure dilation factors $\{1, 2, 4, 8\}$, yielding a receptive field of 255 time steps. The effective receptive field $R$ is computed as:
+
+\begin{equation}
+R = 1 + \sum_{l=1}^{L} 2(k-1) \cdot d_l
+\end{equation}
+
+where $L$ is the number of residual blocks, $k$ is the kernel size, and $d_l$ is the dilation factor for block $l$. Each convolutional layer employs kernel size $k \in \{3, 5, 7\}$ with channel dimensions $C \in \{32, 64, 128\}$ determined by HW-NAS search. Residual (skip) connections stabilize training for deep architectures, while spatial dropout ($p = 0.2$) prevents overfitting \citep{wang2024tscnd, chen2024tcn}. An initial CNN front-end projects the input sequence of ten water quality indicators into a higher-dimensional feature space before temporal modeling.
+
+\subsection{Variance-Driven Dynamic and Mixed-Precision Quantization}
+
+To reduce energy consumption during inference, we deploy a dynamic quantization scheme that adapts numerical precision to the local variability of the input signal. Let $\mathbf{x}_t$ denote the input feature vector at time $t$. We estimate the standard deviation $\sigma_t$ over a sliding window of length $T = 24$ samples:
+
+\begin{equation}
+\sigma_t = \sqrt{\frac{1}{T} \sum_{i=t-T+1}^{t} (\mathbf{x}_i - \boldsymbol{\mu}_t)^2}
+\end{equation}
+
+where $\boldsymbol{\mu}_t$ is the corresponding window mean. Based on $\sigma_t$, we assign quantization bit-width $b_t$ for weights and activations according to variance thresholds calibrated on the training set:
+
+\begin{equation}
+b_t = \begin{cases} 
+4 \text{ bits} & \text{if } \sigma_t < 0.05 \quad\text{(stable conditions)} \\
+6 \text{ bits} & \text{if } 0.05 \leq \sigma_t < 0.15 \quad\text{(moderate variability)} \\
+8 \text{ bits} & \text{if } \sigma_t \geq 0.15 \quad\text{(high variability/pollution events)}
+\end{cases}
+\end{equation}
+
+This variance-aware quantization policy allocates higher precision during critical pollution events while conserving energy during stable periods. Within each quantization regime, we apply layer-wise mixed precision guided by sensitivity analysis: early CNN layers and the first two TCN blocks (which are more sensitive to quantization noise) operate at $b_t$ bits, TCN blocks 3--4 use $b_t - 1$ bits where feasible, and the final output layer is kept at 8 bits for numerical stability \citep{tsanakas2024evaluating, ali2024comprehensive}. Quantization is implemented post-training using uniform affine quantizers with per-layer scale and zero-point parameters estimated from calibration data.
+
+\subsection{Knowledge Distillation and Hardware-Aware Neural Architecture Search}
+
+To mitigate accuracy loss from aggressive quantization, we employ knowledge distillation where a compact student model learns from the soft outputs of the high-capacity teacher. The teacher is the full-precision (32-bit floating point) CNN-TCN, while the student is a pruned and quantized version with approximately 35\% sparsity. The distillation loss combines standard task loss with knowledge transfer:
+
+\begin{equation}
+L_{distill} = 0.7 \cdot L_{task}(\mathbf{y}, \mathbf{y}_{student}) + 0.3 \cdot L_{KL}(p_{teacher} \| p_{student})
+\end{equation}
+
+where $L_{task}$ is mean squared error for the regression task, $L_{KL}$ is the Kullback-Leibler divergence between teacher and student output distributions, and temperature scaling ($T = 3$) is applied to teacher logits to emphasize relative differences \citep{hasan2024optimizing, huang2024billm}. Training proceeds in two stages: the full-precision teacher is trained for 100 epochs, then the quantized student is trained for 150 epochs using the distillation loss with gradual reduction of the task-loss weight from 0.9 to 0.5.
+
+We employ differentiable architecture search to optimize the CNN-TCN configuration for Raspberry Pi 4 (ARM Cortex-A72). The HW-NAS objective balances prediction accuracy with hardware efficiency:
+
+\begin{equation}
+L_{NAS} = L_{accuracy} + \lambda_E E_{inference} + \lambda_L L_{latency}
+\end{equation}
+
+where $\lambda_E = 0.1$ and $\lambda_L = 0.05$ are weighting coefficients, and $E_{inference}$ and $L_{latency}$ denote estimated energy and latency per inference on the target platform. Energy and latency estimates are obtained from analytical models based on FLOPs, memory access patterns, and quantization bit-widths, calibrated using hardware profiling measurements (pyRAPL for CPU, nvidia-smi for GPU) \citep{hasan2024optimizing, zhou2024survey}. The search employs DARTS with 100 search iterations, each evaluating 50 candidate architectures sampled from a continuous relaxation of the discrete search space \citep{li2024evaluating, jin2024comprehensive}.
+
+\subsection{Training and Evaluation Protocol}
+
+All models are trained on the 500,000-record subset using geographically stratified 5-fold cross-validation. We split the data chronologically, using earlier years (1906--2020) for training and recent years (2021--2023) for validation and testing to mimic deployment conditions. Training uses the Adam optimizer with learning rate 0.001, $\beta_1 = 0.9$, $\beta_2 = 0.999$, batch size 64, MSE loss, L2 weight decay ($\lambda = 0.0001$), spatial dropout ($p = 0.2$), Gaussian noise augmentation ($\sigma = 0.1$), gradient clipping (max norm = 1.0), and cosine annealing with warm restarts every 30 epochs \citep{wang2024tscnd, chen2024tcn}. Hardware: NVIDIA RTX 4090 (training), Raspberry Pi 4 (inference evaluation).
+
+We compare the proposed framework against several baselines: non-AI statistical forecasting (moving average with exponential smoothing), full-precision CNN-LSTM, fixed 8-bit quantization, activation-aware static quantization \citep{albogami2024adaptive}, and a TinyML-style 4-bit model with aggressive pruning \citep{shabir2024affordable}. Performance is assessed using prediction accuracy within a $\pm$5\% tolerance band, root mean squared error (RMSE), model size (MB), floating-point operations (FLOPs), latency (ms on Raspberry Pi 4), and average power and energy per inference. These metrics allow us to quantify the contribution of each component (TCN, dynamic quantization, distillation, HW-NAS) to the final power-accuracy trade-off through systematic ablation experiments.
+
+\textbf{Note on simulation-based evaluation:} All power, energy, and latency figures reported in this study are obtained from analytical and profiling-based models applied to the processing pipeline and candidate architectures, rather than from direct measurements on deployed sensor nodes in the field. Power estimates are calibrated using pyRAPL (CPU) and nvidia-smi (GPU) profiling, while latency and energy metrics are derived from FLOPs counts, memory access patterns, and quantization bit-widths. Battery life projections are calculated from energy-per-inference models combined with typical sensor and communication loads. These values should be interpreted as analytical estimates under the stated assumptions rather than as field-measured results from physical IoT deployments.
