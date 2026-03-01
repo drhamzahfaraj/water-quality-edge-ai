@@ -18,6 +18,7 @@ This repository contains the code, data, and experimental results for our paper 
 
 ```
 water-quality-edge-ai/
+├── METHODS.md                 # Detailed methodology documentation
 ├── data/                      # Experimental results and sampling metadata
 │   ├── results.csv            # Main performance comparison (7 methods)
 │   ├── ablation_results.csv   # Component contribution analysis
@@ -156,9 +157,11 @@ Trained on 5 continents, tested on 6th:
 
 **Inference Testing:**
 - Device: Raspberry Pi 4 Model B (4GB RAM, ARM Cortex-A72)
-- Latency: 32 ms per prediction
-- Power: 0.21W average (measured via pyRAPL)
-- Battery life: 20-26 months (10,000mAh @ 5V)
+- Latency: 32 ms per prediction (estimated)
+- Power: 0.21W average (estimated via analytical models)
+- Battery life: 20-26 months (10,000mAh @ 5V, estimated)
+
+> **⚠️ Simulation-Based Evaluation:** All power, energy, latency, and battery life figures are obtained from **analytical and profiling-based models** applied to the processing pipeline, rather than from direct measurements on deployed IoT sensor nodes. Power estimates are calibrated using pyRAPL (CPU) and nvidia-smi (GPU) profiling, while latency and energy metrics are derived from FLOPs, memory access patterns, and quantization bit-widths. These values should be interpreted as **analytical estimates under stated assumptions** rather than field-measured results.
 
 **Dependencies:**
 ```
@@ -171,6 +174,10 @@ pyRAPL>=0.2.3
 ```
 
 See `requirements.txt` for complete list.
+
+## Methodology
+
+For detailed methodology including dataset preprocessing, TCN architecture, variance-driven quantization, knowledge distillation, and HW-NAS, see **[METHODS.md](METHODS.md)**.
 
 ## Citation
 
@@ -205,6 +212,6 @@ MIT License - see LICENSE file for details
 
 ---
 
-**Repository Status:** ✅ Figures generated | ✅ Data published | 🔄 Code coming soon
+**Repository Status:** ✅ Methodology documented | ✅ Figures generated | ✅ Data published | 🔄 Code coming soon
 
-**Last Updated:** February 28, 2026
+**Last Updated:** March 1, 2026
