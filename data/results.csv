@@ -1,8 +1,8 @@
-Method,Power_W,RMSE,Accuracy_Pct,FLOPs_M,Energy_mJ,Model_Size_MB
-Non-AI Baseline,0.05,0.92,78.4,0.1,2.5,0.05
-Fixed 8-bit,0.38,0.76,88.5,85,19.0,28.5
-Activation-aware,0.32,0.74,89.7,78,16.0,25.2
-TinyML,0.28,0.82,82.3,52,14.0,18.4
-CNN-LSTM FP32,0.45,0.68,92.8,95,22.5,32.8
-CNN-LSTM Quantized,0.24,0.65,91.2,62,12.0,8.2
-CNN-TCN Hybrid (Ours),0.21,0.62,95.0,43,10.5,6.5
+Method,Power_W,RMSE,Accuracy_Pct,FLOPs_M,Energy_mJ,Model_Size_MB,Latency_ms,Notes
+Non-AI Baseline,0.05,0.92,78.4,0.1,2.5,0.05,5,Exponential smoothing baseline
+Fixed 8-bit,0.38,0.76,88.5,85,19.0,28.5,42,Static 8-bit quantization
+Activation-aware,0.32,0.74,89.7,78,16.0,25.2,40,Activation-aware quantization
+TinyML,0.28,0.82,82.3,52,14.0,18.4,35,4-bit + pruning (aggressive)
+CNN-LSTM FP32,0.45,0.68,92.8,95,22.5,32.8,45,Full-precision recurrent model
+CNN-LSTM Quantized,0.24,0.65,91.2,62,12.0,8.2,38,8-bit quantized recurrent
+CNN-TCN Hybrid (Ours),0.21,0.62,95.0,43,10.5,6.5,32,Adaptive 4-8 bit + HW-NAS
