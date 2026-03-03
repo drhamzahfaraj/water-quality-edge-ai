@@ -265,12 +265,6 @@ This framework enables **autonomous, solar-powered monitoring stations** in remo
 
 MIT License - see [LICENSE](LICENSE) file for details.
 
-## Contact
-
-**Corresponding Author:** Hamzah Faraj  
-**Email:** f.hamzah@tu.edu.sa  
-**Institution:** Department of Science and Technology, Ranyah College, Taif University, Saudi Arabia
-
 ## Acknowledgments
 
 The author acknowledges the Deanship of Graduate Studies and Scientific Research, Taif University, for funding.
