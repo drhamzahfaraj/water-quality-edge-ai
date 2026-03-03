@@ -1,7 +1,6 @@
 """Temporal Convolutional Network (TCN) implementation for water quality prediction.
 
-This module implements the TCN architecture with dilated causal convolutions
-as described in the paper: 'Optimizing Dynamic Quantization in Edge AI for
+This module implements the TCN architecture with dilated causal convolutions as described in the paper: 'Optimizing Dynamic Quantization in Edge AI for
 Power-Efficient Water Quality Monitoring'
 """
 
