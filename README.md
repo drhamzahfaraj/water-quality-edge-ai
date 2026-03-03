@@ -2,7 +2,6 @@
 
 **Authors:** Hamzah Faraj
 **Affiliation:**:**Department of Science and Technology, Ranyah College, Taif University, Taif 21944 - Saudi Arabia
-**Paper Status:** Submitted February 2026
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
