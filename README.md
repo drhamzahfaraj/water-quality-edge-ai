@@ -64,7 +64,7 @@ water-quality-edge-ai/
 │   └── sampling_metadata.txt # 500K subset stratification details
 │
 ├── figures/                  # Publication-quality figures
-│   └── figures.py      # figures reproducability
+│   └── figures.py            # figures reproducability
 │
 ├── src/                      # Source code
 │   ├── models.py             # CNN-TCN architecture
