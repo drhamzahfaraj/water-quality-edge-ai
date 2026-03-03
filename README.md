@@ -61,12 +61,7 @@ water-quality-edge-ai/
 │   └── sampling_metadata.txt # 500K subset stratification details
 │
 ├── figures/                  # Publication-quality figures
-│   ├── learning_curve.png    # Training set size vs performance
-│   ├── main_results.png      # Baseline comparison (7 methods)
-│   ├── tcn_vs_lstm.png       # Architecture comparison across variance
-│   ├── ablation_study.png    # Component ablation analysis
-│   ├── sensitivity_analysis.png # Hyperparameter robustness
-│   └── geographic_generalization.png # Cross-continental performance
+│   └── figures.py      # figures reproducability
 │
 ├── src/                      # Source code
 │   ├── models.py             # CNN-TCN architecture
