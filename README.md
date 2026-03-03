@@ -13,14 +13,14 @@
 This repository contains the code, data, and experimental results for our paper on a hybrid edge AI framework combining temporal convolutional networks (TCN), variance-driven dynamic quantization (4-8 bits), knowledge distillation, and hardware-aware neural architecture search (HW-NAS) for power-efficient water quality monitoring on resource-constrained IoT devices.
 
 **Key Results:**
-- 🔋 **40-45% power savings** over fixed 8-bit quantization baselines
-- 📈 **95% prediction accuracy** (10-14% improvement over state-of-the-art)
-- ⚡ **43M FLOPs** (31% reduction vs CNN-LSTM, 49% vs fixed 8-bit)
-- 🔌 **20-26 month battery life** on IoT devices (2.5× improvement)
-- 🌍 **Cross-continental robustness** (average 2.1% accuracy degradation)
-- 🎯 **32 ms latency** on Raspberry Pi 4 (29% faster than CNN-LSTM)
+-  **40-45% power savings** over fixed 8-bit quantization baselines
+-  **95% prediction accuracy** (10-14% improvement over state-of-the-art)
+-  **43M FLOPs** (31% reduction vs CNN-LSTM, 49% vs fixed 8-bit)
+-  **20-26 month battery life** on IoT devices (2.5× improvement)
+-  **Cross-continental robustness** (average 2.1% accuracy degradation)
+-  **32 ms latency** on Raspberry Pi 4 (29% faster than CNN-LSTM)
 
-## 🌟 Key Contributions
+## Key Contributions
 
 1. **First TCN + HW-NAS integration** for water quality IoT monitoring
    - 31% FLOPs reduction vs CNN-LSTM through parallel temporal processing
