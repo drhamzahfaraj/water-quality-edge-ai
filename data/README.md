@@ -2,7 +2,7 @@
 
 This directory contains experimental results, sampling metadata, and instructions for obtaining the UNEP GEMSWater dataset used in our research.
 
-## 📂 Contents
+## Contents
 
 ### Experimental Results
 
@@ -31,7 +31,7 @@ This directory contains experimental results, sampling metadata, and instruction
 
 ### Documentation
 
-6. **`METRICS_EXPLAINED.md`** - **⭐ READ THIS FIRST**
+6. **`METRICS_EXPLAINED.md`** - **READ THIS FIRST**
    - Comprehensive explanation of all performance metrics
    - Energy-Power-Latency relationship clarification
    - Analytical energy model with platform-specific constants
@@ -40,7 +40,7 @@ This directory contains experimental results, sampling metadata, and instruction
 
 ---
 
-## 📊 Understanding the Metrics
+## Understanding the Metrics
 
 **IMPORTANT:** All metrics are derived from analytical models calibrated with pyRAPL profiling on Raspberry Pi 4 emulation, not direct field measurements.
 
@@ -61,7 +61,7 @@ Total Cycle includes:
 
 ---
 
-## 🌍 UNEP GEMS/Water Dataset
+## UNEP GEMS/Water Dataset
 
 ### Dataset Description
 
@@ -144,7 +144,7 @@ Split is:
 
 ---
 
-## 📥 Obtaining the Data
+## Obtaining the Data
 
 The original UNEP GEMS/Water dataset is publicly available:
 
@@ -188,7 +188,7 @@ The processed `unep_subset.csv` file is approximately **150 MB** and is **not in
 
 ---
 
-## 🔍 Data Validation
+## Data Validation
 
 After preprocessing, verify your subset:
 
@@ -221,25 +221,20 @@ print(f"  High (≥0.15): {(variances >= 0.15).sum()} parameters")
 
 ---
 
-## 📜 License
+## License
 
 The UNEP GEMS/Water data is licensed under **[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)** - Creative Commons Attribution 4.0 International.
 
 **Usage Requirements:**
-- ✅ Proper attribution to UNEP and original data providers
-- ✅ Citation in publications (see above)
-- ✅ Indication of any modifications made
+- Proper attribution to UNEP and original data providers
+- Citation in publications (see above)
+- Indication of any modifications made
 
 ---
 
-## 🔗 Related Files
+## Related Files
 
 - **Paper:** `../paper/main.tex` - Full methodology and results
 - **Methods:** `../METHODS.md` - Detailed experimental procedures
 - **Preprocessing:** `../src/preprocess_unep.py` - Data preparation script
 - **Analysis:** `../experiments/` - Experiment configuration files
-
----
-
-**Last Updated:** March 1, 2026  
-**Questions?** Contact f.hamzah@tu.edu.sa
