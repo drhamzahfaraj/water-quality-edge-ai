@@ -6,7 +6,7 @@ This document explains how all performance metrics in the experimental results w
 
 All metrics reported in this repository are obtained through **analytical and profiling-based models** calibrated with empirical measurements on Raspberry Pi 4 hardware emulation, rather than direct field measurements from deployed IoT sensors.
 
-## 📊 Core Metrics Explained
+## Core Metrics Explained
 
 ### 1. **Power (W) - Average Power Consumption**
 
@@ -201,7 +201,7 @@ Model_Size = (163,000 × 6.2) / 8 / 1024² + 0.5MB (overhead)
 
 ---
 
-## ⚙️ Analytical Energy Model (Calibrated)
+## Analytical Energy Model (Calibrated)
 
 **Platform-Specific Constants (Raspberry Pi 4):**
 
@@ -234,7 +234,7 @@ E_total = 5.56 + 3.78 + 1.16 (I/O) = 10.5 mJ ✓
 
 ---
 
-## 🔋 Battery Life Calculation
+## Battery Life Calculation
 
 **Scenario:** Hourly water quality measurements with solar backup.
 
@@ -277,7 +277,7 @@ Effective_lifetime = 20-26 months before replacement
 
 ---
 
-## 📐 Cross-Metric Consistency
+## Cross-Metric Consistency
 
 **Sanity Checks Across All Methods:**
 
@@ -292,7 +292,7 @@ Effective_lifetime = 20-26 months before replacement
 
 ---
 
-## 🎯 Interpretation Guidelines
+## Interpretation Guidelines
 
 ### For Researchers:
 - **FLOPs** → Computational complexity (hardware-agnostic)
@@ -314,14 +314,9 @@ Effective_lifetime = 20-26 months before replacement
 
 ---
 
-## 📚 References
+## References
 
 - **Energy Model:** Equation 4 in manuscript (Section 2: Problem Formulation)
 - **FLOPs Analysis:** Section 4.5 (Computational Complexity)
 - **Latency Profiling:** Section 5.1 (Experimental Setup)
 - **Battery Calculation:** Section 5.6 (Real-Time Performance)
-
----
-
-**Last Updated:** March 1, 2026  
-**Corresponding Author:** f.hamzah@tu.edu.sa
