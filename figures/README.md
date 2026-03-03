@@ -70,21 +70,4 @@ python src/generate_figures.py --figure noise_robustness --input experiments/res
 
 ## Figure Specifications
 
-- **Format:** PDF (vector graphics for publication quality)
-- **Resolution:** 300 DPI (for raster elements)
-- **Fonts:** Serif fonts for academic publication
-- **Color scheme:** Colorblind-friendly palette
-- **Size:** Designed for two-column IEEE/ACM format
-
-## Citation
-
-If you reuse these figures, please cite:
-
-```bibtex
-@article{faraj2025water,
-  title={Optimizing Dynamic Quantization in Edge AI for Power-Efficient Water Quality Monitoring},
-  author={Faraj, Hamzah and Soliman, Mohamed S. and Alshahri, Abdullah H.},
-  journal={[Journal Name]},
-  year={2025}
-}
-```
+- **Format:** PNG
