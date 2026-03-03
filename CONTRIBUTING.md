@@ -1,6 +1,7 @@
 # Contributing to Water Quality Edge AI Project
 
-Thank you for your interest in contributing to our water quality monitoring research! This project aims to advance edge AI techniques for environmental monitoring, and we welcome contributions from the research community.
+- Thank you for your interest in contributing to our water quality monitoring research! 
+- This project aims to advance edge AI techniques for environmental monitoring, and we welcome contributions from the research community.
 
 ## 🎯 Project Overview
 
