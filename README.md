@@ -42,7 +42,7 @@ This repository contains the code, data, and experimental results for our paper 
    - Learning curve plateau at 500K (diminishing returns: 1.8% potential gain from 40× data)
    - Sensitivity analysis confirms robustness within ±20% threshold perturbations
 
-## 📂 Repository Structure
+## Repository Structure
 
 ```
 water-quality-edge-ai/
@@ -84,7 +84,7 @@ water-quality-edge-ai/
 └── experiments/              # Experimental configurations
 ```
 
-## 📊 Dataset
+## Dataset
 
 Our experiments use a stratified 500,000-record subset (2.5%) of the **UNEP GEMSWater Global Freshwater Quality Archive**:
 
@@ -130,7 +130,7 @@ Our 500K subset was selected using **4-stage stratified sampling** with statisti
 
 See `data/sampling_metadata.txt` for complete details.
 
-## 🔬 Experimental Results
+## Experimental Results
 
 ### Main Performance Comparison
 
@@ -195,7 +195,7 @@ Trained on 5 continents, tested on 6th:
 
 **Average degradation:** -2.1% across continents, demonstrating strong geographic robustness.
 
-## ⚙️ Hardware & Software
+## Hardware & Software
 
 ### Training Environment
 - **GPU:** NVIDIA RTX 4090 (24GB VRAM)
@@ -210,7 +210,7 @@ Trained on 5 continents, tested on 6th:
 - **Power:** 0.21W average (calibrated with pyRAPL profiling)
 - **Battery life:** 20-26 months (10,000mAh @ 5V, estimated)
 
-> **⚠️ Important Note on Evaluation Methodology**
+> **Important Note on Evaluation Methodology**
 >
 > All **power, energy, latency, and battery life figures** reported in this work are obtained from **analytical and profiling-based models** applied to the processing pipeline, rather than from direct measurements on physically deployed IoT sensor nodes in field conditions. 
 >
@@ -241,7 +241,7 @@ pyRAPL>=0.2.3
 
 See `requirements.txt` for complete list.
 
-## 📖 Methodology
+## Methodology
 
 For detailed methodology including:
 - CNN-TCN architecture with dilated causal convolutions
@@ -252,7 +252,7 @@ For detailed methodology including:
 
 See **[METHODS.md](METHODS.md)** and manuscript **Section 4**.
 
-## 🌍 Impact & Applications
+## Impact & Applications
 
 This framework enables **autonomous, solar-powered monitoring stations** in remote watersheds, directly supporting:
 
@@ -265,7 +265,7 @@ This framework enables **autonomous, solar-powered monitoring stations** in remo
 - Enables year-round operation in remote areas (satellite/LoRa connectivity)
 - Supports 100-station networks with $35K-60K biennial savings
 
-## 📄 Citation
+## Citation
 
 If you use this code or data, please cite:
 
@@ -279,7 +279,7 @@ If you use this code or data, please cite:
 }
 ```
 
-## 📜 License
+## License
 
 MIT License - see [LICENSE](LICENSE) file for details.
 
@@ -289,20 +289,10 @@ MIT License - see [LICENSE](LICENSE) file for details.
 **Email:** f.hamzah@tu.edu.sa  
 **Institution:** Department of Science and Technology, Ranyah College, Taif University, Saudi Arabia
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
-- UNEP GEMSWater team for providing the global freshwater quality dataset
-- Taif University for computational resources and research support
-- PyTorch and Plotly communities for open-source tools
+The author acknowledges the Deanship of Graduate Studies and Scientific Research, Taif University, for funding.
 
-## 🔗 Related Resources
+## Related Resources
 
 - **UNEP GEMSWater Dataset:** [Zenodo](https://doi.org/10.5281/zenodo.10701676)
-- **Manuscript:** `paper/main.tex` (publication-ready LaTeX)
-- **Detailed Methods:** [METHODS.md](METHODS.md)
-
----
-
-**Repository Status:** ✅ Paper finalized | ✅ Figures generated | ✅ Data published | ✅ Code available
-
-**Last Updated:** March 1, 2026
