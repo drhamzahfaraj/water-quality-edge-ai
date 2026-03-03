@@ -88,7 +88,7 @@ water-quality-edge-ai/
 
 Our experiments use a stratified 500,000-record subset (2.5%) of the **UNEP GEMSWater Global Freshwater Quality Archive**:
 
-- **Source:** [Zenodo](https://doi.org/10.5281/zenodo.10701676) (CC BY 4.0)
+- **Source:** UNEP GEMSWater Dataset [Zenodo](https://doi.org/10.5281/zenodo.10701676)
 - **Total records:** 20,446,832 measurements
 - **Stations:** 13,660 across 37 countries
 - **Time span:** 1906-2023 (117 years)
@@ -283,7 +283,7 @@ If you use this code or data, please cite:
 
 MIT License - see [LICENSE](LICENSE) file for details.
 
-## 👥 Contact
+## Contact
 
 **Corresponding Author:** Hamzah Faraj  
 **Email:** f.hamzah@tu.edu.sa  
@@ -292,7 +292,3 @@ MIT License - see [LICENSE](LICENSE) file for details.
 ## Acknowledgments
 
 The author acknowledges the Deanship of Graduate Studies and Scientific Research, Taif University, for funding.
-
-## Related Resources
-
-- **UNEP GEMSWater Dataset:** [Zenodo](https://doi.org/10.5281/zenodo.10701676)
