@@ -3,7 +3,7 @@
 - Thank you for your interest in contributing to our water quality monitoring research! 
 - This project aims to advance edge AI techniques for environmental monitoring, and we welcome contributions from the research community.
 
-## 🎯 Project Overview
+## Project Overview
 
 This repository implements a hybrid edge AI framework combining:
 - Temporal Convolutional Networks (TCN)
@@ -13,7 +13,7 @@ This repository implements a hybrid edge AI framework combining:
 
 **Goal:** Enable power-efficient water quality monitoring on resource-constrained IoT devices.
 
-## 🔍 Ways to Contribute
+## Ways to Contribute
 
 ### 1. Research Contributions
 - **Algorithm improvements:** Enhanced quantization policies, TCN architectures, or NAS strategies
@@ -37,7 +37,7 @@ This repository implements a hybrid edge AI framework combining:
 - **Tutorial development:** Step-by-step guides for deployment
 - **Translation:** Documentation in other languages
 
-## 🛠️ Development Setup
+## Development Setup
 
 ### Prerequisites
 - Python 3.10+
@@ -75,7 +75,7 @@ pytest --cov=src tests/
 pytest tests/test_quantization.py -v
 ```
 
-## 📝 Contribution Guidelines
+## Contribution Guidelines
 
 ### Code Style
 - Follow **PEP 8** Python style guidelines
@@ -179,7 +179,7 @@ Closes #42
 - Once approved, maintainers will merge your PR
 - Your contribution will be acknowledged in release notes
 
-## 💡 Research Collaboration
+## Research Collaboration
 
 ### Co-authorship Opportunities
 Significant research contributions may lead to co-authorship on future publications. Criteria:
@@ -187,7 +187,7 @@ Significant research contributions may lead to co-authorship on future publicati
 - Novel experimental validation or field deployment studies
 - Major code infrastructure development
 
-Contact f.hamzah@tu.edu.sa to discuss collaboration.
+Contact Hamzah Faraj on f.hamzah@tu.edu.sa to discuss collaboration.
 
 ### Dataset Contributions
 If you have water quality datasets to share:
@@ -196,7 +196,7 @@ If you have water quality datasets to share:
 - Document preprocessing steps
 - Submit via pull request to `data/` directory
 
-## 🐛 Reporting Issues
+## Reporting Issues
 
 ### Bug Reports
 Use the GitHub issue tracker with the "bug" label:
@@ -240,21 +240,21 @@ Technical approach (if known)
 Other approaches you've thought about
 ```
 
-## ❓ Questions & Discussion
+## Questions & Discussion
 
 - **GitHub Discussions:** For general questions and research discussions
 - **Issues:** For bug reports and feature requests
 - **Email:** f.hamzah@tu.edu.sa for research collaboration
 
-## 📜 License
+## License
 
 By contributing, you agree that your contributions will be licensed under the MIT License.
 
-## 🎉 Recognition
+## Recognition
 
 Contributors will be:
 - Listed in `CONTRIBUTORS.md`
 - Mentioned in release notes
 - Acknowledged in future publications (for significant research contributions)
 
-Thank you for helping advance edge AI for environmental monitoring! 🌍💧
+Thank you for helping advance edge AI for environmental monitoring!
