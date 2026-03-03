@@ -265,20 +265,6 @@ This framework enables **autonomous, solar-powered monitoring stations** in remo
 - Enables year-round operation in remote areas (satellite/LoRa connectivity)
 - Supports 100-station networks with $35K-60K biennial savings
 
-## Citation
-
-If you use this code or data, please cite:
-
-```bibtex
-@article{faraj2026optimizing,
-  title={Optimizing Dynamic Quantization in Edge AI for Power-Efficient Water Quality Monitoring},
-  author={Faraj, Hamzah and Soliman, Mohamed S. and Alshahri, Abdullah H.},
-  journal={Submitted for Publication},
-  year={2026},
-  note={Submitted February 2026}
-}
-```
-
 ## License
 
 MIT License - see [LICENSE](LICENSE) file for details.
