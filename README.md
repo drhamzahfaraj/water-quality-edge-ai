@@ -1,7 +1,7 @@
 # Optimizing Dynamic Quantization in Edge AI for Power-Efficient Water Quality Monitoring
 
 **Authors:** Hamzah Faraj, Mohamed S. Soliman, Abdullah H. Alshahri  
-**Affiliation:**Department of Science and Technology, Ranyah College, Taif University, Taif 21944 - Saudi Arabia
+**Affiliation:**:**Department of Science and Technology, Ranyah College, Taif University, Taif 21944 - Saudi Arabia
 **Paper Status:** Submitted February 2026
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
