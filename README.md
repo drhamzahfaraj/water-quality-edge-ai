@@ -5,7 +5,7 @@
 - **Email:** f.hamzah@tu.edu.sa, yassine.aribi@ieee.org
 - **Institution:** Department of Science and Technology, Ranyah College, Taif University, Saudi Arabia
 2. **Yassine Aribi**
-- **Email:** f.hamzah@tu.edu.sa, yassine.aribi@ieee.org
+- **Email:** yassine.aribi@ieee.org
 - **Institution:** Research Groups in Intelligent Machines (REGIM Laboratory),
 National Engineering School of Sfax (ENIS),
 University of Sfax, Sfax, Tunisia
