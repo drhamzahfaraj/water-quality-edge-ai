@@ -9,7 +9,7 @@
 - **Institution:** Research Groups in Intelligent Machines (REGIM Laboratory),
 National Engineering School of Sfax (ENIS),
 University of Sfax, Sfax, Tunisia
-3. Corresponding author: f.hamzah@tu.edu.sa
+3. **Corresponding author:** f.hamzah@tu.edu.sa
 
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
