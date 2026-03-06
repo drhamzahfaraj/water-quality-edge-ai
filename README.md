@@ -1,7 +1,9 @@
 # Optimizing Dynamic Quantization in Edge AI for Power-Efficient Water Quality Monitoring
 
 - **Authors:**  
-1. Hamzah Faraj, 
+1. Hamzah Faraj
+- **Email:** f.hamzah@tu.edu.sa, yassine.aribi@ieee.org
+- **Institution:** Department of Science and Technology, Ranyah College, Taif University, Saudi Arabia
 2. Yassine Aribi
 - **Email:** f.hamzah@tu.edu.sa, yassine.aribi@ieee.org
 - **Institution:** Department of Science and Technology, Ranyah College, Taif University, Saudi Arabia
