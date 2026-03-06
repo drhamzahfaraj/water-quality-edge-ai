@@ -3,7 +3,8 @@
 - **Authors:**  
 1. **Hamzah Faraj**
 - **Email:** f.hamzah@tu.edu.sa
-- **Institution:** Department of Science and Technology, Ranyah College, Taif University, Saudi Arabia
+- **Institution:** Department of Science and Technology, Ranyah College,
+Taif University, Taif 21944, Saudi Arabia
 2. **Yassine Aribi**
 - **Email:** yassine.aribi@ieee.org
 - **Institution:** Research Groups in Intelligent Machines (REGIM Laboratory),
