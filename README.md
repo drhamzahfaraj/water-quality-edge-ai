@@ -2,7 +2,7 @@
 
 - **Authors:**  
 1. **Hamzah Faraj**
-- **Email:** f.hamzah@tu.edu.sa, yassine.aribi@ieee.org
+- **Email:** f.hamzah@tu.edu.sa
 - **Institution:** Department of Science and Technology, Ranyah College, Taif University, Saudi Arabia
 2. **Yassine Aribi**
 - **Email:** yassine.aribi@ieee.org
