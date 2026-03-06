@@ -267,4 +267,4 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ## Acknowledgments
 
-The author acknowledges the Deanship of Graduate Studies and Scientific Research, Taif University, for funding.
+The authors would like to acknowledge the Deanship of Graduate Studies and Scientific Research, Taif University for funding this work.
